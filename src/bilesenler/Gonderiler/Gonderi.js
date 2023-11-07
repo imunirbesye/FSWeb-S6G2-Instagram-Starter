@@ -1,12 +1,13 @@
-import React from "react";
+import React, {useState} from "react";
 import Yorumlar from "../Yorumlar/Yorumlar";
 import BegenBolumu from "./BegenBolumu";
 import GonderiBasligi from "./GonderiBasligi";
+import YorumYap from "../Yorumlar/YorumYap";
 
 const Gonderi = (props) => {
   // 🔥 Bu bileşenin parentının aşağıdaki propları düzgün gönderdiğinden emin olun.
-  const { gonderi, gonderiyiBegen } = props;
-
+  const {gonderi, gonderiyiBegen, yorumEkle} = props;
+ 
   return (
     <div className="post-border">
       <GonderiBasligi
@@ -21,9 +22,10 @@ const Gonderi = (props) => {
         />
       </div>
       {/* BegenBolumu düzgün çalışması için ihtiyaç duyduğu tüm proplara sahip mi? */}
-      <BegenBolumu gonderiyiBegen={() => gonderiyiBegen(gonderi.id)} />
+      <BegenBolumu gonderiyiBegen={() => gonderiyiBegen(gonderi.id)} begeniSayisi={gonderi.likes} />
       {/* Yorumlar da proplara dikkat istiyor! */}
-      <Yorumlar />
+      <Yorumlar yorumlar={gonderi.comments}/>
+      <YorumYap gonderiId={gonderi.id} yorumEkle={yorumEkle} />
     </div>
   );
 };
